@@ -3,19 +3,18 @@ import TodoItem from "./todoItem";
 import { List } from 'antd';
 import 'antd/dist/antd.css';
 
-const TodoList = ({ tasks }) =>{
+const TodoList = ({updateData, tasks }) =>{
 
     let elements = tasks.map(( item ) => {
-        const {id, ...itemProps } = item;
+        const {id, ...taskProps } = item;
+
         return (
-          <TodoItem
-            boxChecked={() => {
-              console.log(id + " box checked");
-            }}
-            key={id}
-            {...itemProps}
-          />
-        );
+            <TodoItem
+                checkHandler={()=>{
+                    updateData(id);
+                }}
+                key={id} {...taskProps}
+            />)
     });
 
     return(
