@@ -3,16 +3,16 @@ import TodoItem from "./todoItem";
 import { List } from 'antd';
 import 'antd/dist/antd.css';
 
-const TodoList = ({updateData, tasks }) =>{
+const TodoList = ({updateCheck , deleteItem, tasks }) =>{
 
     let elements = tasks.map(( item ) => {
         const {id, ...taskProps } = item;
 
         return (
             <TodoItem
-                checkHandler={()=>{
-                    updateData(id);
-                }}
+                checkHandler={() => updateCheck(id)}
+                deleteHandler={() => {deleteItem(id)}
+                }
                 key={id} {...taskProps}
             />)
     });

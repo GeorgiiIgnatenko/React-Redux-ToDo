@@ -1,9 +1,12 @@
 import React, {Component} from "react";
 import Header from "./components/header";
-import TodoBody from "./components/todoBody";
+import TodoAdder from "./components/todoAdder";
 import TodoList from "./components/todoList";
 
 class App extends Component {
+
+    maxId = 100
+
     state = {
         tasks: [
             { id: 0, title: "Drink Coffee", checked: false },
@@ -13,12 +16,39 @@ class App extends Component {
         ]
     };
 
-  updateData = (id) => {
-      this.setState(({ tasks }) =>{
-          const idx = tasks.findIndex((task) => task.id === id);
+  updateCheck = (id) => {
+      this.setState(({tasks}) =>{
+          const idx = tasks.findIndex(task => task.id === id);
           tasks[idx].checked = !tasks[idx].checked;
           return tasks;
       });
+  };
+
+  deleteItem = id => {
+    this.setState(({ tasks }) => {
+      const idx = tasks.findIndex(el => el.id === id);
+      const newArray = [
+          ...tasks.slice(0, idx),
+          ...tasks.slice(idx + 1)
+      ];
+      return { tasks: newArray };
+    });
+  };
+
+  addItem = titleName => {
+    const newItem = {
+      id: this.maxId++,
+      title: titleName,
+      checked: false
+    };
+
+    this.setState(({ tasks }) => {
+        const newArray = [
+            ...tasks,
+            newItem
+        ];
+        return {tasks: newArray}
+    });
   };
 
   render() {
@@ -33,8 +63,12 @@ class App extends Component {
         }}
       >
         <Header />
-        <TodoBody />
-        <TodoList updateData={this.updateData} tasks={this.state.tasks} />
+        <TodoAdder addItem = {this.addItem} />
+        <TodoList
+            deleteItem={this.deleteItem}
+            updateCheck={this.updateCheck}
+            tasks={this.state.tasks}
+        />
       </div>
     );
   }

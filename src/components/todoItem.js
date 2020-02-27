@@ -2,7 +2,7 @@ import React from "react";
 import { List, Checkbox, Button, Icon } from "antd";
 import "antd/dist/antd.css";
 
-const TodoItem = ( {checkHandler, ...taskProps} ) => {
+const TodoItem = ( {checkHandler, deleteHandler, ...taskProps} ) => {
 
   return (
     <div>
@@ -18,7 +18,11 @@ const TodoItem = ( {checkHandler, ...taskProps} ) => {
           {taskProps.title}
         </p>
         <div>
-          <Button type="danger" style={{ marginRight: "10px" }}>
+          <Button
+              type="danger"
+              style={{ marginRight: "10px" }}
+              onClick={deleteHandler}
+          >
             <Icon type="delete" />
           </Button>
           <Button type="primary">
