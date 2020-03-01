@@ -1,8 +1,9 @@
 import React from "react";
-import { List, Checkbox, Button, Icon } from "antd";
+import { List, Checkbox, Button} from "antd";
+import { CheckOutlined , DeleteOutlined } from '@ant-design/icons';
 import "antd/dist/antd.css";
 
-const TodoItem = ( {checkHandler, deleteHandler, ...taskProps} ) => {
+const TodoItem = ( {checkHandler, deleteHandler,taskDone, ...taskProps} ) => {
 
   return (
     <div>
@@ -11,22 +12,28 @@ const TodoItem = ( {checkHandler, deleteHandler, ...taskProps} ) => {
         <p
           style={{
             fontWeight: taskProps.checked ? "bold" : "normal",
-            fontSize: "15px",
-            margin: 0
+            textDecoration: taskProps.done ? "line-through" : "none",
+              fontSize: "15px",
+              margin: 0,
+              maxWidth: "150px",
+              wordBreak: 'break-all'
           }}
         >
           {taskProps.title}
         </p>
         <div>
           <Button
-              type="danger"
-              style={{ marginRight: "10px" }}
-              onClick={deleteHandler}
+            type="danger"
+            style={{ marginRight: "10px" }}
+            onClick={deleteHandler}
           >
-            <Icon type="delete" />
+            <DeleteOutlined />
           </Button>
-          <Button type="primary">
-            <Icon type="edit" />
+          <Button
+              type="primary"
+              onClick={taskDone}
+          >
+            <CheckOutlined />
           </Button>
         </div>
       </List.Item>

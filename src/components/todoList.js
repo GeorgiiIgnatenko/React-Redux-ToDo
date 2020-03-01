@@ -3,7 +3,7 @@ import TodoItem from "./todoItem";
 import { List } from 'antd';
 import 'antd/dist/antd.css';
 
-const TodoList = ({updateCheck , deleteItem, tasks }) =>{
+const TodoList = ({updateCheck , deleteItem, doneTask, tasks }) =>{
 
     let elements = tasks.map(( item ) => {
         const {id, ...taskProps } = item;
@@ -11,8 +11,8 @@ const TodoList = ({updateCheck , deleteItem, tasks }) =>{
         return (
             <TodoItem
                 checkHandler={() => updateCheck(id)}
-                deleteHandler={() => {deleteItem(id)}
-                }
+                deleteHandler={() => {deleteItem(id)}}
+                taskDone={() => {doneTask(id)}}
                 key={id} {...taskProps}
             />)
     });

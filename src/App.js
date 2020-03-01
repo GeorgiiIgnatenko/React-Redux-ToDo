@@ -3,16 +3,16 @@ import Header from "./components/header";
 import TodoAdder from "./components/todoAdder";
 import TodoList from "./components/todoList";
 
-class App extends Component {
+export default class App extends Component {
 
     maxId = 100
 
     state = {
         tasks: [
-            { id: 0, title: "Drink Coffee", checked: false },
-            { id: 1, title: "Write code", checked: false },
-            { id: 2, title: "Go to shop", checked: false },
-            { id: 3, title: "Do homework", checked: false }
+            { id: 0, title: "Drink Coffee", checked: false, done: false },
+            { id: 1, title: "Write code", checked: false, done: false },
+            { id: 2, title: "Go to shop", checked: false, done: false },
+            { id: 3, title: "Do homework", checked: false, done: false }
         ]
     };
 
@@ -35,11 +35,21 @@ class App extends Component {
     });
   };
 
+  doneTask = id => {
+      this.setState(({tasks})=>{
+          const idx = tasks.findIndex((el)=>el.id === id);
+          tasks[idx].done = !tasks[idx].done;
+          return tasks;
+      })
+  }
+
+
   addItem = titleName => {
     const newItem = {
       id: this.maxId++,
       title: titleName,
-      checked: false
+      checked: false,
+      done: false
     };
 
     this.setState(({ tasks }) => {
@@ -67,10 +77,11 @@ class App extends Component {
         <TodoList
             deleteItem={this.deleteItem}
             updateCheck={this.updateCheck}
+            doneTask = {this.doneTask}
             tasks={this.state.tasks}
         />
       </div>
     );
   }
 }
-export default App;
+

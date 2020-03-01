@@ -1,47 +1,51 @@
-import React from "react";
+import React, {Component} from "react";
 import { Button , Input } from "antd";
 import 'antd/dist/antd.css';
 
-const TodoAdder = ({addItem}) => {
+export default class TodoAdder extends Component{
 
-    const addHandler = (titleName) => {
-        addItem(titleName)
+    state = {
+       title: ''
+    };
+
+    onInputChange = (e) =>{
+        this.setState({
+            title: e.target.value
+        });
+    };
+
+    onSubmit = (e) => {
+        e.preventDefault();
+        this.props.addItem(this.state.title);
+    };
+
+    render() {
+        return (
+            <section
+                style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center"
+                }}
+            >
+                <form
+                    onSubmit={this.onSubmit}
+                >
+                    <Input
+                        style={{
+                            width: "500px",
+                            marginRight: "10px"
+                        }}
+                        onChange={this.onInputChange}
+                    />
+                    <Button
+                        type="primary"
+                        onClick={this.onSubmit}
+                    >
+                        Добавить задачу
+                    </Button>
+                </form>
+            </section>
+        );
+    };
     }
-
-    return (
-      <section
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center"
-        }}
-      >
-        <form
-            onSubmit={e =>{
-                e.preventDefault()
-                console.log(e);
-                addHandler();
-            }}
-
-        >
-          <Input
-            style={{
-              width: "500px",
-              marginRight: "10px"
-            }}
-            onChange={(e)=>{
-                console.log(e.target.value)
-            }}
-
-          />
-          <Button
-            type="primary"
-          >
-            Добавить задачу
-          </Button>
-        </form>
-      </section>
-    );
-};
-
-export default TodoAdder;
