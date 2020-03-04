@@ -1,33 +1,38 @@
 import React from "react";
 import TodoItem from "./todoItem";
-import { List } from 'antd';
-import 'antd/dist/antd.css';
+import { List } from "antd";
+import "antd/dist/antd.css";
+import "./todoList.css"
 
-const TodoList = ({updateCheck , deleteItem, doneTask, tasks }) =>{
+const TodoList = ({ updateCheck, deleteItem, doneTask, tasks }) => {
+  let elements = tasks.map(item => {
+    const { id, ...taskProps } = item;
 
-    let elements = tasks.map(( item ) => {
-        const {id, ...taskProps } = item;
+    return (
+      <TodoItem
+        checkHandler={() => updateCheck(id)}
+        deleteHandler={() => {
+          deleteItem(id);
+        }}
+        taskDone={() => {
+          doneTask(id);
+        }}
+        key={id}
+        {...taskProps}
+      />
+    );
+  });
 
-        return (
-            <TodoItem
-                checkHandler={() => updateCheck(id)}
-                deleteHandler={() => {deleteItem(id)}}
-                taskDone={() => {doneTask(id)}}
-                key={id} {...taskProps}
-            />)
-    });
-
-    return(
-        <List
-            style={{marginTop:'20px',width:'655px',}}
-            header={ <h2>Активных задач : { tasks.length } </h2> }
-            bordered
-        >
-            { elements }
-        </List>
-    )
-
-}
+  return (
+    <List
+        className='list'
+      header={<span className='listSpan'>Активных задач : {tasks.length} </span>}
+      bordered
+    >
+      {elements}
+    </List>
+  );
+};
 
 
 export default TodoList;

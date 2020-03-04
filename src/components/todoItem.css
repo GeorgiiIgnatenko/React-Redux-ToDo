@@ -1,0 +1,6 @@
+.listItemLabel{
+    font-size: 15px;
+    margin: 0;
+    max-width: 150px;
+    word-break: break-all;
+}
