@@ -23,9 +23,11 @@ export default class App extends Component {
 
   loadData = () => {
       let savedTasks = JSON.parse(localStorage.getItem("tasks"));
-      this.setState(({tasks}) =>{
+      if (savedTasks.length !== 0){
+        this.setState(({tasks}) =>{
           return {tasks: savedTasks};
-      })
+        })
+      }
   };
 
 
