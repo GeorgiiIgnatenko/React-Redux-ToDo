@@ -13,6 +13,21 @@ export default class App extends Component {
     ]
   };
 
+  componentDidMount() {
+      window.addEventListener("beforeunload",this.saveData);
+      window.addEventListener("DOMContentLoaded", this.loadData);
+  }
+  saveData = () => {
+    localStorage.setItem("tasks",JSON.stringify(this.state.tasks))
+  };
+
+  loadData = () => {
+      let savedTasks = JSON.parse(localStorage.getItem("tasks"));
+      this.setState(({tasks}) =>{
+          return {tasks: savedTasks};
+      })
+  };
+
 
   updateCheck = id => {
     this.setState(({ tasks }) => {
