@@ -1,5 +1,5 @@
 import React from "react";
-import TodoItem from "./todoItem";
+import TodoItem from "./TodoItem/TodoItem";
 import { List } from "antd";
 import "antd/dist/antd.css";
 import "./todoList.css"

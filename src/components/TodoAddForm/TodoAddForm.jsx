@@ -3,7 +3,7 @@ import { Form,Button, Input } from "antd";
 import "antd/dist/antd.css";
 import './todoAdder.css'
 
-export default class TodoAdder extends Component {
+export default class TodoAddForm extends Component {
   state = {
     title: ""
   };
