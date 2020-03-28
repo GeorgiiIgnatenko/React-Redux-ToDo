@@ -1,38 +1,31 @@
 import React from "react";
-import TodoItem from "./TodoItem/TodoItem";
+import TodoItem from "../TodoItem/TodoItem";
 import { List } from "antd";
+import { useSelector } from "react-redux";
 import "antd/dist/antd.css";
-import "./todoList.css"
+import "./todoList.css";
 
-const TodoList = ({ updateCheck, deleteItem, doneTask, tasks }) => {
-  let elements = tasks.map(item => {
-    const { id, ...taskProps } = item;
-
-    return (
-      <TodoItem
-        checkHandler={() => updateCheck(id)}
-        deleteHandler={() => {
-          deleteItem(id);
-        }}
-        taskDone={() => {
-          doneTask(id);
-        }}
+const TodoList = () => {
+  const tasks = useSelector(state => state.tasksReducer).map(el => {
+    const { title, id } = el;
+    return <TodoItem
         key={id}
-        {...taskProps}
-      />
-    );
+        id={id}
+        title={title}
+    />;
   });
-
   return (
     <List
-        className='list'
-      header={<span className='listSpan'>Активных задач : {tasks.length} </span>}
+      className="list"
+      header={
+        <span className="listSpan">Активных задач : {tasks.length} </span>
+      }
       bordered
     >
-      {elements}
+      {tasks}
     </List>
   );
 };
 
 
-export default TodoList;
+export default TodoList

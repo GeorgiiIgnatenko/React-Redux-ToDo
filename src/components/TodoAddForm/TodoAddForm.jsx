@@ -1,12 +1,17 @@
 import React, { Component } from "react";
-import { Form,Button, Input } from "antd";
+import { connect } from "react-redux";
+import { Form, Button, Input } from "antd";
 import "antd/dist/antd.css";
-import './todoAdder.css'
+import "./todoAddForm.css";
+import { createTask } from "../../redux/actions";
 
-export default class TodoAddForm extends Component {
-  state = {
-    title: ""
-  };
+class TodoAddForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      title: ""
+    };
+  }
 
   onInputChange = e => {
     this.setState({
@@ -16,27 +21,31 @@ export default class TodoAddForm extends Component {
 
   onSubmit = e => {
     e.preventDefault();
+
+    if (this.state.title.trim()) {
+      const newTask = {
+        title: this.state.title,
+        id: Date.now().toString()
+      };
+      this.props.createTask(newTask);
+    }
     this.setState({
-      title: ''
+      title: ""
     });
-    this.props.addItem(this.state.title);
   };
 
   render() {
     return (
       <section className="todoAdder">
-        <Form
-            className="todoAdderForm"
-            onSubmit={this.onSubmit}
-        >
+        <Form className="todoAdderForm" onSubmit={this.onSubmit}>
           <Form.Item
-              className="todoAdderInput"
-              rules={[
-                {
-                  required: true,
-                  message: 'Введите название задачи!',
-                },
-              ]}
+            className="todoAdderInput"
+            rules={[
+              {
+                required: true,
+                message: "Введите название задачи!"
+              }
+            ]}
           >
             <Input
               value={this.state.title}
@@ -45,10 +54,7 @@ export default class TodoAddForm extends Component {
             />
           </Form.Item>
           <Form.Item>
-            <Button
-                type="primary"
-                htmlType="submit"
-            >
+            <Button type="primary" htmlType="submit">
               Добавить задачу
             </Button>
           </Form.Item>
@@ -57,3 +63,8 @@ export default class TodoAddForm extends Component {
     );
   }
 }
+const mapDispatchToProps = {
+  createTask
+};
+
+export default connect(null,mapDispatchToProps)(TodoAddForm)

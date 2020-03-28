@@ -1,32 +1,53 @@
 import React from "react";
 import { List, Checkbox, Button } from "antd";
 import { CheckOutlined, DeleteOutlined } from "@ant-design/icons";
+import {useDispatch,useSelector} from "react-redux";
 import "antd/dist/antd.css";
 import "./todoItem.css"
+import {markTask, deleteTask, doneTask} from "../../redux/actions";
 
-const TodoItem = ({ checkHandler, deleteHandler, taskDone, ...taskProps }) => {
+const TodoItem = ({title,id}) => {
+  const checkSelector = useSelector(state => state.tasksReducer.find(el => el.id === id).marked);
+  const doneSelector = useSelector(state => state.tasksReducer.find(el => el.id === id).done);
+  const dispatch = useDispatch();
+
+  const checkboxHandler = () => {
+    dispatch(markTask(id))
+  };
+  const delBtnHandler = () => {
+    dispatch(deleteTask(id))
+  };
+  const doneBtnHandler = () => {
+    dispatch(doneTask(id))
+  };
   return (
     <div>
       <List.Item>
-        <Checkbox style={{ marginRight: "15px" }} onChange={checkHandler} />
+        <Checkbox
+            style={{ marginRight: "15px" }}
+            onClick={() => checkboxHandler()}
+        />
         <p
             className='listItemLabel'
           style={{
-            fontWeight: taskProps.checked ? "bold" : "normal",
-            textDecoration: taskProps.done ? "line-through" : "none",
+            fontWeight: checkSelector ? "bold" : "normal",
+            textDecoration: doneSelector ? "line-through" : "none",
           }}
         >
-          {taskProps.title}
+          {title}
         </p>
         <div>
           <Button
             type="danger"
             style={{ marginRight: "10px" }}
-            onClick={deleteHandler}
+            onClick={() => delBtnHandler()}
           >
             <DeleteOutlined />
           </Button>
-          <Button type="primary" onClick={taskDone}>
+          <Button
+              type="primary"
+              onClick={() => doneBtnHandler()}
+          >
             <CheckOutlined />
           </Button>
         </div>
