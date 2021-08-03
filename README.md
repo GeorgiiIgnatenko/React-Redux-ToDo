@@ -1,7 +1,9 @@
 React Redux ToDo app. This app: https://github.com/GeorgiiIgnatenko/ReactTODO + redux
 
+Link to hosted app: https://react-todo-app-9cf0a.firebaseapp.com/
+
 ![todo_2](https://user-images.githubusercontent.com/48638830/127865460-b2695021-535b-413a-ae7d-a1b5a2841e39.png)
-https://react-todo-app-9cf0a.firebaseapp.com/
+
 
 ## Available Scripts
 
