@@ -1,4 +1,4 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+React Redux ToDo app. This app: https://github.com/GeorgiiIgnatenko/ReactTODO + redux
 
 ![todo_2](https://user-images.githubusercontent.com/48638830/127865460-b2695021-535b-413a-ae7d-a1b5a2841e39.png)
 https://react-todo-app-9cf0a.firebaseapp.com/
